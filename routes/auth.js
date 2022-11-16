@@ -25,7 +25,26 @@ router.post('/register', async (req, res) =>
     }
     catch(err)
     {
-        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+//login
+router.post('/login', async (req, res) =>
+{
+    try
+    {
+        const user = await User.findOne({email: req.body.email});
+        !user && res.status(404).send("No user under that email!");
+
+        const validPW = await bcrypt.compare(req.body.password, user.password)
+        !validPW && res.status(400).json("Password incorrect.")
+
+        res.status(200).json(user);
+    }
+    catch (err)
+    {
+        res.status(500).json(err);
     }
 });
 

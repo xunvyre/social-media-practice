@@ -1,31 +1,16 @@
 const router = require('express').Router();
-const User = require('../models/User');
+const Journal = require('../models/Journal');
 
-//get all users (dev only)
-router.get('/', (req, res) =>
+//get all journals from single user
+router.get('/', async (req, res) =>
 {
-    User.find({})
-    .then(dbUserData => res.json(dbUserData))
-    .catch(err =>
-    {
-        console.log(err);
-        res.status(500).json(err);
-    })
+    console.log("success");
 });
 
-//get single user
+//get single journal
 router.get('/:id', async (req, res) =>
 {
-    try
-    {
-        const user = await User.findById(req.params.id);
-        const {password, __v, ...other} = user._doc;
-        res.status(200).json(other);
-    }
-    catch (err)
-    {
-        res.status(500).json(err);
-    };
+    console.log("success");
 });
 
 //update
